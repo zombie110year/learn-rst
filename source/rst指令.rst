@@ -106,7 +106,7 @@ rst 指令
 
 ::
 
-    .. seealse::
+    .. seealso::
 
         参见某某某
 
