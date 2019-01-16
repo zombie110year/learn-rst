@@ -247,6 +247,16 @@ figure
         return 0;
     }
 
+::
+
+    .. code-block:: c
+        :linenos:
+
+        int main()
+        {
+            return 0;
+        }
+
 接受的参数
 
 - ``:linenos:`` 为代码块生成行号.
@@ -297,6 +307,33 @@ figure
 
 .. literalinclude:: code/example.py
     :diff: code/example_diff.py
+
+highlight
+---------
+
+``highlight`` 指令影响的是段落中使用 ``::`` 之后的默认渲染语言.
+
+它的影响范围一直持续到下一个 ``highlight`` 指令. 每一个 rst 文件, 段落后 ``::`` 缩进一个单位会被认为一个一个 code-block, 其渲染模式为 Python. 如果 使用了 ``.. highlight:: cpp``, 那么默认渲染模式会变为 C++. 以此类推.
+
+.. highlight:: cpp
+    :linenos:
+
+这里做一个例子::
+
+    std::cout << "Hello World!" << std::endl;
+
+.. highlight:: none
+
+::
+
+    .. highlight:: cpp
+        :linenos:
+
+    这里做一个例子::
+
+        std::cout << "Hello World!" << std::endl;
+
+.. highlight:: python
 
 数学环境
 ========
@@ -359,6 +396,3 @@ include
         :number-lines: n        # 从 n 开始编号, 默认从 1 开始
         :encoding: utf-8        # 设置字符编码
         :tab-width: 4           # 设置制表符宽度为 4
-
-glossary
---------
