@@ -7,7 +7,9 @@ Sphinx 是一个用于生成 Python 文档的工具, 但是也可以用来制作
 首先使用 Sphinx 的自动配置工具
 ==============================
 
-在准备好的工作目录下, 使用 sphinx-quickstart 将会弹出一堆文本, 并让你在其中选择要使用的配置, 一般情况下, 只需要手动修改两项, 其他保持默认即可. 让我们来看看 Sphinx 询问了我们哪些问题吧.
+.. highlight:: none
+
+在准备好的工作目录下, 运行 ``sphinx-quickstart`` 将会弹出一堆文本, 并让你在其中选择要使用的配置, 一般情况下, 只需要手动修改两项, 其他保持默认即可. 让我们来看看 Sphinx 询问了我们哪些问题吧.
 
 ::
 
@@ -57,7 +59,7 @@ Sphinx 是一个用于生成 Python 文档的工具, 但是也可以用来制作
     http://sphinx-doc.org/config.html#confval-language.
     > Project language [en]: zh_CN
 
-选择项目语言, 默认是英语, 用 zh_CN 表示简体中文, 可以在上面那个链接看支持的语言以及其表示代码. 这个选项会影响搜索功能, 英文情况下, 会以英语存储搜索索引, 这样就无法使用中文搜索.
+选择项目语言, 默认是英语, 用 zh_CN 表示简体中文, 可以在上面那个链接看支持的语言以及其表示代码. 这个选项会影响搜索功能, 英文情况下, 会以英语存储搜索索引, 这样就无法使用中文搜索. 搜索功能是用 JavaScript + 字典实现的.
 
 ::
 
@@ -65,7 +67,7 @@ Sphinx 是一个用于生成 Python 文档的工具, 但是也可以用来制作
     or ".rst".  Only files with this suffix are considered documents.
     > Source file suffix [.rst]:
 
-文档文件后缀, 只有拥有这些后缀的文件才会被解析, 在当前使用的版本(v1.8.1)中只能接受 .rst 与 .txt 后缀. 要解析 Markdown, 需要安装额外的插件 recommonmark, 这个稍后再讲.
+文档文件后缀, 只有拥有这些后缀的文件才会被解析, 在当前使用的版本(v1.8.2)中只能接受 .rst 与 .txt 后缀(但都是以 reStructuredText 的语法进行解析). 要解析 Markdown, 需要安装额外的插件 recommonmark, 这个稍后再讲.
 
 ::
 
@@ -121,9 +123,12 @@ Sphinx 是一个用于生成 Python 文档的工具, 但是也可以用来制作
       Makefile
 
 在根目录下设置了 ``Makefile`` 便于使用 make 工具自动构建, 而配置文件和索引则放在了 source 目录下.
+如果需要修改文件规划, 那么, 可以在 Makefile 中修改 ``BUILDDIR`` 和 ``SOURCEDIR`` 两项目.
 
 插件介绍
 ========
+
+.. todo
 
 toctree
 ========
@@ -177,6 +182,8 @@ toctree 下的 ``:maxdepth: 2``, ``:caption: Contents:`` 等就是它的参数, 
 
     # 下载
     pip install sphinx_rtd_theme
+
+::
 
     # conf.py 中配置
     import sphinx_rtd_theme
