@@ -128,7 +128,25 @@ Sphinx 是一个用于生成 Python 文档的工具, 但是也可以用来制作
 插件介绍
 ========
 
-.. todo
+官方插件
+--------
+
+- autodoc: 自动从模块中抽取 docstring 插入文档
+- doctest: 自动测试 doctest
+- intersphinx: 链接多个 Sphinx 文档. 需要启用它才能使用 :mod:`os` 这样的语法链接到官方文档
+- todo: 写下 todo 在文件头部时, 将不会渲染该文件
+- coverage: 检查封面
+- imgmath: 将数学公式渲染为 png 或 svg 图像
+- mathjax: 使用 Mathjax 渲染数学公式
+- ifconfig: 通过配置的条件判断决定文档包含
+- viewcode: 将源代码包含进文档项目, 并在 api 文档中创建指向源代码的链接
+- githubpages: create .nojekyll file to publish the document on GitHub pages
+
+第三方插件
+----------
+
+- :doc:`graphviz`, 可在文档中嵌入 graphviz 代码, 在构建时生成图片
+- :doc:`matplotlib`, 在文档中嵌入 matplotlib 代码, 在构建时生成图片
 
 toctree
 ========

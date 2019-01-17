@@ -316,7 +316,6 @@ highlight
 它的影响范围一直持续到下一个 ``highlight`` 指令. 每一个 rst 文件, 段落后 ``::`` 缩进一个单位会被认为一个一个 code-block, 其渲染模式为 Python. 如果 使用了 ``.. highlight:: cpp``, 那么默认渲染模式会变为 C++. 以此类推.
 
 .. highlight:: cpp
-    :linenos:
 
 这里做一个例子::
 
@@ -327,13 +326,12 @@ highlight
 ::
 
     .. highlight:: cpp
-        :linenos:
 
     这里做一个例子::
 
         std::cout << "Hello World!" << std::endl;
 
-.. highlight:: python
+.. highlight:: rst
 
 数学环境
 ========

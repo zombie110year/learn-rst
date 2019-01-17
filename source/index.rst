@@ -17,6 +17,8 @@
    rst角色
    api文档
    latex
+   graphviz
+   matplotlib
 
 目录与表格
 ==========

@@ -19,6 +19,7 @@
 
 # -- Project information -----------------------------------------------------
 
+import sphinx_rtd_theme
 project = 'Learn reStructureText'
 copyright = '2018, Zombie110year'
 author = 'Zombie110year'
@@ -40,9 +41,10 @@ release = '1.0.0'
 # ones.
 extensions = [
     'sphinx.ext.mathjax',
-    'sphinx.ext.ifconfig',
+    'sphinx.ext.intersphinx',
     'sphinx.ext.viewcode',
     'sphinx.ext.githubpages',
+    'sphinx.ext.graphviz',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -78,7 +80,6 @@ pygments_style = None
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-import sphinx_rtd_theme
 html_theme = 'sphinx_rtd_theme'
 
 # Theme options are theme-specific and customize the look and feel of a theme
@@ -179,3 +180,4 @@ epub_exclude_files = ['search.html']
 
 
 # -- Extension configuration -------------------------------------------------
+graphviz_output_format = 'svg'
