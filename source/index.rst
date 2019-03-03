@@ -19,6 +19,7 @@
    latex
    graphviz
    matplotlib
+   自定义扩展
 
 目录与表格
 ==========
