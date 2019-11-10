@@ -7,7 +7,7 @@ Sphinx 是一个用于生成 Python 文档的工具, 但是也可以用来制作
 首先使用 Sphinx 的自动配置工具
 ==============================
 
-.. highlight:: none
+.. highlight:: text
 
 在准备好的工作目录下, 运行 ``sphinx-quickstart`` 将会弹出一堆文本, 并让你在其中选择要使用的配置, 一般情况下, 只需要手动修改两项, 其他保持默认即可. 让我们来看看 Sphinx 询问了我们哪些问题吧.
 
@@ -154,7 +154,7 @@ sphinx 的插件是位于 `sphinx.ext.` 模块下的子模块。
 第三方插件
 ----------
 
-第三方插件通常在 `sphinxcontrib` 包中，感兴趣可以自己去看，
+第三方插件通常在 ``sphinxcontrib`` 包中，感兴趣可以自己去看，
 另外有些 Python 项目会在自己的包内提供 sphinx 扩展，例如
 
 - :doc:`matplotlib`, 在文档中嵌入 matplotlib 代码, 在构建时生成图片
