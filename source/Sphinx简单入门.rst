@@ -128,24 +128,35 @@ Sphinx 是一个用于生成 Python 文档的工具, 但是也可以用来制作
 插件介绍
 ========
 
+Sphinx（docutils）的插件都以 Python 模块的形式提供，
+sphinx 的插件是位于 `sphinx.ext.` 模块下的子模块。
+
 官方插件
 --------
 
 - autodoc: 自动从模块中抽取 docstring 插入文档
-- doctest: 自动测试 doctest
-- intersphinx: 链接多个 Sphinx 文档. 需要启用它才能使用 :mod:`os` 这样的语法链接到官方文档
-- todo: 写下 todo 在文件头部时, 将不会渲染该文件
-- coverage: 检查封面
-- imgmath: 将数学公式渲染为 png 或 svg 图像
-- mathjax: 使用 Mathjax 渲染数学公式
+- apidoc: 根据源代码中的注释或文档字符串生成 API 文档
+- autosectionlabel: 自动为文章中的标题生成链接，方便引用
+- coverage: 检查代码文档覆盖率
+- doctest: 在编译文档时执行文档测试
+- extlinks: 方便编辑指向同一网站下页面的链接
+- githubpages: 为了发布在 Github Pages 上，创建 .nojekyll 文件以禁用 jekyll
+- :doc:`graphviz`: 调用 graphviz 生成图片
 - ifconfig: 通过配置的条件判断决定文档包含
+- imgconverter: 编译前转换图片
+- imgmath: 将数学公式渲染为 png 或 svg 图像
+- inheritance_diagram: 解析对象继承关系并生成图形
+- intersphinx: 链接官方文档需要启用它才能使用 :mod:`os` 这样的语法链接到官方文档
+- mathjax: 使用 Mathjax 渲染数学公式
+- todo: 渲染 todo 域，根据配置的不同决定是否在输出结果中包含 todo 内容
 - viewcode: 将源代码包含进文档项目, 并在 api 文档中创建指向源代码的链接
-- githubpages: create .nojekyll file to publish the document on GitHub pages
 
 第三方插件
 ----------
 
-- :doc:`graphviz`, 可在文档中嵌入 graphviz 代码, 在构建时生成图片
+第三方插件通常在 `sphinxcontrib` 包中，感兴趣可以自己去看，
+另外有些 Python 项目会在自己的包内提供 sphinx 扩展，例如
+
 - :doc:`matplotlib`, 在文档中嵌入 matplotlib 代码, 在构建时生成图片
 
 toctree
