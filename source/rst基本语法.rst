@@ -2,9 +2,62 @@
 rst 基本语法
 ############
 
-Sphinx 默认使用 reStructureText(rst) 标记语言, 要能够处理 Markdown 还需要额外的渲染器, 而且在了解一番过后, 发现 rst 支持的内容比 Markdown 更丰富, 于是决定学习一下. 建议克隆该库, 自己使用 ``make html`` 编译结果, 再对照源码学习 reStructureText 的语法.
+.. highlight:: text
 
-rst 和 Python 一样, 很多样式的表达都依赖缩进. (所以你的编辑器上最好有📏2333)
+Sphinx 默认使用 |reST| 标记语言(通常简称为 rst 或 reST), 要能够处理 Markdown 还需要额外的渲染器, 而且在了解一番过后, 发现 |reST| 支持的内容比 Markdown 更丰富, 于是决定学习一下. 建议克隆该库, 自己使用 ``make html`` 编译结果, 再对照源码学习 reStructureText 的语法.
+
+|reST| 和 Python 一样, 很多表达都依赖缩进. (所以你的编辑器上最好有📏2333)
+
+以下内容翻译自 `A ReStructuredText Primer <http://docutils.sourceforge.net/docs/user/rst/quickstart.html>`_:
+
+:Author: Richard Jones
+:Version: 5801
+:Copyright: This document has been placed in the public domain.
+
+结构
+====
+
+首先, 让我说 "结构化文本" 可能有些用词不当. |reST| 更像使用某些一致模式的 "轻松文本". 这些模式被 HTML 转换器解释产生 "非常结构化" 的文本, 该文本才可被 Web 浏览器使用.
+
+最基本的被识别的模式是 `段落`. 这是一个被空行分隔的文本区块(一行就够了). 段落必须由相同的索引 -- 也就是说, 在它们的左边缘需要对齐. 开始缩进的段落将产生对应缩进的引用段落. 例如::
+
+    这是一个段落. 它有点
+    短.
+
+        这个段落将会产生一个缩进块的文本, 通常用作表示引用其他文本.
+
+    这是另一段.
+
+结果:
+
+这是一个段落. 它有点
+短.
+
+    这个段落将会产生一个缩进块的文本, 通常用作表示引用其他文本.
+
+这是另一段.
+
+文本样式
+========
+
+在段落和其他文本体内, 你可以使用额外的文本记号用 "\*斜体\*" 作 *斜体*
+或者 "\*\*粗体\*\*" 作 **粗体**. 这被称作 "行内标记".
+
+如果你想要一些显示为固定空间的纯文本, 使用 "\`\`双反引号\`\`". 注意
+不要在双反引号里加任何别的标记 -- 例如星号 "\*".
+
+如果你发现你想要使用单个独特的文本字符, 这通常也是可以的 -- |reST|
+非常聪明. 例如, 单独的 * 星号被处理得很好, 像这个算式里的星号: 5*6=30.
+如果你实际想要让 \*被星号包围的文本\* **不要** 被斜体化, 你需要表明
+星号不是特殊的. 你通过放置反斜杠在它前面, 例如 "\\\*", 或者用闭合的
+双反引号像这样::
+
+    ``*``
+
+.. tip::
+
+    将内联标记想象成括号的一种形式, 并用相同的方式使用它: 在标记文本
+    的前后. 由空格包围或单词中间的内联标记本身不会被识别, 有关详细信息, 参考标记规范.
 
 标题
 ====
@@ -197,7 +250,7 @@ Sphinx 是调用 pygments 进行语法高亮的.
 使用 ``[#]`` 自动编号. 或者使用 ``[#name]`` 为特定尾注命名::
 
     尾注 [#fn]_
-    
+
     .. [#fn] 或者叫脚注, footnote.
 
 尾注 [#fn]_
@@ -301,3 +354,5 @@ this is a Doctest block
 .. _`Docutils 中文文档`: https://docutils-zh-cn.readthedocs.io/zh_CN/latest/
 .. _`从 Markdown 到 reStructureText`: https://macplay.github.io/posts/cong-markdown-dao-restructuredtext/#id21
 .. [#f1] 尾注的文本最好放在源代码末端, 便于管理
+
+.. |reST| replace:: reStructuredText
