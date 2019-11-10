@@ -154,7 +154,7 @@ sphinx 的插件是位于 `sphinx.ext.` 模块下的子模块。
 第三方插件
 ----------
 
-第三方插件通常在 ``sphinxcontrib`` 包中，感兴趣可以自己去看，
+第三方插件通常在 ``sphinxcontrib`` 包中，数量庞大，功能众多，感兴趣可以自己去看，
 另外有些 Python 项目会在自己的包内提供 sphinx 扩展，例如
 
 - :doc:`matplotlib`, 在文档中嵌入 matplotlib 代码, 在构建时生成图片
