@@ -11,11 +11,11 @@ graphviz
 
 可以使用指令::
 
-    .. graphviz:: code/example.gv
+    .. graphviz:: /code/example.gv
 
 来包含一个用 graphviz 语法编辑的文件, 将在构建时渲染为图片.
 
-.. graphviz:: code/example.gv
+.. graphviz:: /code/example.gv
 
 或者用同样的指令::
 

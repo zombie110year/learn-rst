@@ -1,3 +1,7 @@
+###################
+Sphinx 文档生成工具
+###################
+
 ###############
 Sphinx 简单入门
 ###############
@@ -141,7 +145,7 @@ sphinx 的插件是位于 `sphinx.ext.` 模块下的子模块。
 - doctest: 在编译文档时执行文档测试
 - extlinks: 方便编辑指向同一网站下页面的链接
 - githubpages: 为了发布在 Github Pages 上，创建 .nojekyll 文件以禁用 jekyll
-- :doc:`graphviz`: 调用 graphviz 生成图片
+- :doc:`reST-扩展/graphviz`: 调用 graphviz 生成图片
 - ifconfig: 通过配置的条件判断决定文档包含
 - imgconverter: 编译前转换图片
 - imgmath: 将数学公式渲染为 png 或 svg 图像
@@ -157,7 +161,7 @@ sphinx 的插件是位于 `sphinx.ext.` 模块下的子模块。
 第三方插件通常在 ``sphinxcontrib`` 包中，数量庞大，功能众多，感兴趣可以自己去看，
 另外有些 Python 项目会在自己的包内提供 sphinx 扩展，例如
 
-- :doc:`matplotlib`, 在文档中嵌入 matplotlib 代码, 在构建时生成图片
+- :doc:`reST-扩展/matplotlib`, 在文档中嵌入 matplotlib 代码, 在构建时生成图片
 
 toctree
 ========
@@ -228,3 +232,125 @@ GitHub Page 可以将 master, gh-pages 分支下的根目录或 master 分支的
 为了方便管理, 可以在 build/html 目录下新建一个 git 仓库, 并重命名为 gh-pages 分支. 将这个分支 push 到 github 的 gh-pages 上, 充当 GitHub Page 的资源. (注意, build 目录应当在根目录下的 .gitignore 中被忽略)
 
 这样, 在项目根目录只需要一个 master 分支, 在这个分支编辑源文件, 然后 ``make html``, ``git add *``, ``git commit``, ``git push``, 之后就进入 ``build/html`` 目录, 再 ``git`` 一通即可. 非常舒服.
+
+使用 Sphinx 书写 API 文档
+=========================
+
+程序中有哪些结构? 变量,函数,类 ...... 等等. 在 Sphinx 中定义了相应的指令或角色来描述它们, 并且, 也可以写进源代码的 docstring 中, 让 ``sphinx-apidoc`` 自动生成.
+
+此文参考官方文档 http://www.sphinx-doc.org/en/master/usage/restructuredtext/domains.html .
+
+.. highlight:: rst
+
+函数
+----
+
+.. function:: getDate(time, mode="YYYY-MM-DD hh:mm:ss")
+
+    解析传入的时间, 得到一个可读的时间字符串.
+
+    :param int time: 从 1970 至今的秒数
+    :param mode: 解析模式
+    :type mode: str
+
+    :return: 表示时间的字符串 ``YYYY-MM-DD hh:mm:ss``
+    :rtype: str
+
+    :raise ValueError: 不能传入一个负值
+    :var test: 一个无关的测试量
+
+使用 ``function`` 描述一个函数::
+
+    .. function:: getDate(time, mode)
+
+        解析传入的时间, 得到一个可读的时间字符串.
+
+        :param int time: 从 1970 至今的秒数
+        :param mode: 解析模式
+        :type mode: str
+
+        :return: 表示时间的字符串 ``YYYY-MM-DD hh:mm:ss``
+        :rtype: str
+
+        :raise ValueError: 不能传入一个负值
+        :var test: 一个无关的测试量
+
+- ``function`` 指令后书写函数原型, 应当处于同一行中.
+- ``:param xxx:`` 描述一个参数的名称 ``xxx``.
+- ``:type xxx:`` 描述参数 ``xxx`` 的类型.
+- ``:param type name:`` 同时描述一个参数的类型与名称.
+- ``:return:`` 描述返回值.
+- ``:rtype:`` 描述返回值的类型.
+- ``:raise xxx:`` 描述抛出的异常.
+- ``:var yyy:`` 描述用到的一个变量.
+
+并且可以通过 :func:`getDate` 来创建一个指向该函数的链接::
+
+    并且可以用过 :func:`getDate` 来创建一个指向该函数的链接
+
+类
+----
+
+.. class:: Clock(speed=0.0)
+
+    .. method:: gamma()
+
+        求解 :math:`\gamma` 因子
+
+        .. math:: \gamma = \frac{1}{ \sqrt{ 1 - \frac{v^2}{c^2} } }
+
+        :return: gamma
+        :rtype: float
+
+    .. method:: speed(v)
+
+        设置该钟表相对观察者的速度.
+
+        :param float v: 速度, 单位 m/s
+
+    .. attribute:: position
+
+        该物体相对观察者的位置 ``(float x, float y)``.
+
+- 方法使用 ``method`` , 可接受的修饰和 `函数`_ 一致.
+- 类/方法/属性, 可以使用 :class:`Clock`, :meth:`gamma`, :attr:`position` 来创建链接::
+
+    .. class:: Clock(speed=0.0)
+
+        .. method:: gamma()
+
+            求解 :math:`\gamma` 因子
+
+            .. math:: \gamma = \frac{1}{ \sqrt{ 1 - \frac{v^2}{c^2} } }
+
+            :return: gamma
+            :rtype: float
+
+        .. method:: speed(v)
+
+            设置该钟表相对观察者的速度.
+
+            :param float v: 速度, 单位 m/s
+
+        .. attribute:: position
+
+            该物体相对观察者的位置 ``(float x, float y)``.
+
+    类/方法/属性, 可以使用 :class:`Clock`, :meth:`gamma`, :attr:`position` 来创建链接
+
+数据
+----
+
+用于解释程序中出现的一些重要数据, 比如全局变量/常量.
+
+.. data:: NULL
+
+    ``0``
+
+并且, 使用 :data:`NULL` 来创建一个指向该块的链接::
+
+    .. data:: NULL
+
+        ``0``
+
+    并且, 使用 :data:`NULL` 来创建一个指向该块的链接
