@@ -2,9 +2,6 @@
 欢迎来到 reStructureText 的世界!
 ################################
 
-.. default-role:: code
-.. |a_rst| replace:: `reStructuredText <https://docutils.sourceforge.io/docs/>`__
-
 什么是 |a_rst|？ |a_rst| 是一种基于 Python 的 docutils 模块提供解析功能的标记语言。
 它具有以下特点：
 
@@ -46,6 +43,7 @@ Markdown 根据其扩展标准、具体实现、使用环境的不同，有多�
     :caption: 本书目录：
 
     reST-入门
+    reST-标记规范
 
 目录与表格
 ==========

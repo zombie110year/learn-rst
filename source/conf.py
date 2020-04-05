@@ -21,7 +21,7 @@
 
 import sphinx_rtd_theme
 project = 'Learn reStructureText'
-copyright = '2018, Zombie110year'
+copyright = '2018-2020, Zombie110year'
 author = 'Zombie110year'
 
 # The short X.Y version
@@ -75,6 +75,16 @@ exclude_patterns = []
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = None
 
+# 开场白，嵌入到每个文档的头部
+rst_prolog = """
+.. default-role:: literal
+.. highlight:: text
+"""
+
+# 结语，嵌入到每个文档的尾部
+rst_epilog = """
+.. |a_rst| replace:: `reStructuredText <https://docutils.sourceforge.io/docs/>`__
+"""
 
 # -- Options for HTML output -------------------------------------------------
 
