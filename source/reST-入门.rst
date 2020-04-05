@@ -728,6 +728,46 @@ Unicode
     格式化字符串设置渲染格式。
     默认是当前日期 |date|，可以用 ``%H:%M:%S`` 渲染为当前时间 |time|。
 
+警告
+----
+
+|a_rst| 提供了一些警告指令，如
+
+-   attention
+-   caution
+-   danger
+-   error
+-   hint
+-   important
+-   note
+-   tip
+-   warning
+
+用来将传入的体元素表达为指定的语义。::
+
+    .. warning::
+
+        毫无营养的随便写写是没有意义的！
+
+.. warning::
+
+    毫无营养的随便写写是没有意义的！
+
+比较通用的是 `admonition` 指令，上述指令其实是它的子类。::
+
+    .. admonition:: 标题
+        :class: 类型，用于决定渲染样式
+
+    .. admonition:: 你瞅啥？
+        :class: dongbei warning
+
+        瞅你咋地？
+
+.. admonition:: 你瞅啥？
+    :class: dongbei warning
+
+    瞅你咋地？
+
 导入
 ----
 
@@ -876,3 +916,11 @@ encoding
     .. image:: bild.png
 
     是一样的。
+
+常用角色
+========
+
+在 `内联标记`_ 章节已经介绍了一部分，接下来是
+
+doc
+    这会创建一个引向项目中其他
