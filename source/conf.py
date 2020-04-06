@@ -43,6 +43,7 @@ release = '2.0.0'
 # ones.
 extensions = [
     'helloworld',
+    'github',
     'sphinx.ext.mathjax',
     'sphinx.ext.intersphinx',
     'sphinx.ext.viewcode',

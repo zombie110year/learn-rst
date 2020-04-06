@@ -57,3 +57,90 @@ Nikola 加载插件
 
 编写扩展
 ========
+
+扩展的两种形式：Directive 和 Role。
+前者是 :class:`docutils.parsers.rst.Directive` 实例，后者可以通过一个函数来加载。
+
+创建一个角色
+------------
+
+我们先了解一下角色的创建方式，可以参考官方文档创建 |a_rst| 解释性文本角色
+https://docutils.sourceforge.io/docs/howto/rst-roles.html
+。
+
+一个角色是一个函数：
+
+.. function:: role_function(name, rawtext, text, lineno, inliner, options={}, content=[])
+
+    :param str name: 该角色的名称
+    :param str rawtext: 包含该角色完整标记的纯文本，常用来在发生错误时通过 problematic 结点来抛出错误信息。
+    :param str text: 该角色的内容
+    :param int lineno: 该角色在源文件中所处的行数
+    :param inliner: 调用该函数的 :class:`docutils.parsers.rst.states.Inliner` 对象，
+        提供报告错误和访问文档树的一些有用的属性。
+    :param options: 通过 role 指令创建的角色会传入此参数，是 role 指令设置的选项和它们的值。
+    :type options: Dict[str, str]
+    :param content: 通过 role 指令创建的角色会传入此参数，是 role 指令的内容。
+        TODO:（截至 2012 年官方文档撰写时，没有角色会使用此参数)
+    :type content: List[str]
+    :returns: 一个元组，包含两个元素：
+
+        1. 一组结点，将被插入到文档树中角色出现的位置。
+        2. 一组系统信息，将被插入到文档数中角色出现的块的后一个块中。
+
+        它们都可以是空列表。
+    :rtype: Tuple[List[nodes], List[messages]]
+
+以下面的角色为例::
+
+    :github:`zombie110year/learn-rst`
+
+当调用时，各参数的值将是
+
+name
+    `github`
+rawtext
+    ::
+
+        :github:`zombie110year/learn-rst`
+text
+    `zombie110year/learn-rst`
+lineno
+    看情况，从 0 开始。
+
+对于一个标准的角色，需要用 `register_canonical_role` 将其注册进 docutils 的解析器中：
+
+.. code:: python
+
+    docutils.parsers.rst.roles.register_canonical_role("github", github_role)
+
+如果该角色是与所使用的应用程序相关的，则需要使用 `register_local_role` 函数来注册：
+
+.. code:: python
+
+    from docutils.parsers.rst import roles
+    roles.register_local_role(name, role_function)
+
+另外还提供一个 `register_generic_role` 的注册函数，这个函数是为了便于将那些只是将文本处理为某个结点
+的角色注册的，这样的角色没有其他功能：
+
+.. code:: python
+
+    from docutils.parsers.rst import roles, nodes
+    roles.register_generic_role("emphasize", nodes.emphasis)
+
+对于我们的 `github` 角色 :github:`zombie110year/learn-rst` 来说，我们的目的就是将它转换成
+链接到 GitHub 仓库的链接，那么就可以这么编写：
+
+.. literalinclude:: /_ext/github.py
+    :language: python
+    :lines: 9-11,54-61
+
+这个功能将会判断我们提供的是一个仓库的名称还是一个用户的名称，
+并且格式化为不同的显示名。例如::
+
+    本仓库为 :github:`zombie110year/learn-rst`，
+    它的创建者是 :github:`zombie110year`。
+
+本仓库为 :github:`zombie110year/learn-rst`，
+它的创建者是 :github:`zombie110year`。
