@@ -1,82 +1,59 @@
+##################
+|a_rst| 自定义扩展
+##################
 
-##########
-自定义扩展
-##########
+|a_rst| 提供了基于 docutils 模块的扩展支持能力。
+扩展以 Python 代码编写，以新的指令或角色的形式提供。
+由于 Python 的能力，还可以调用外部程序对内容进行处理。
 
-一个 reStructuredText 扩展就是一个 Python 模块,
-首先, 需要在文档的 conf.py 中,
-将扩展模块文件所在的目录添加到 :data:`sys.path` 之中.
+在编写扩展之前，建议先掌握加载扩展的方法，这里提供一份 HelloWorld 扩展的代码，
+作用是提供 `helloworld` 指令，将该指令转换为形如 `Hello World! {{ 时间日期 }}` 的段落：
 
-然后, 根据扩展中定义的指令, 角色编写 ``setup`` 函数::
+.. literalinclude:: /_ext/helloworld.py
+    :name: ext_helloworld
+    :language: python
+    :lines: 1-3,8-12
+    :linenos:
 
-    def setup(app):
-        app.add_directive("name", DirectiveClass)
-        app.add_role("name", RoleClass)
+本文提供了 `Sphinx <Sphinx 加载扩展>`_ 的扩展加载方式和 `Nikola <Nikola 加载插件>`_ 加载插件的方式。
+请在阅读这两个章节之一并成功运行上面的例子后，阅读后续的 `编写扩展`_ 章节。
 
-        #....
+Sphinx 加载扩展
+===============
 
-参数 app 是由 sphinx 在调用时传递的.
+Sphinx 的扩展可以通过预安装的包的形式来加载，也可以放置在当前项目的 *source/_ext* 目录下，
+*_ext* 目录名前的下划线是告诉模板引擎此文件夹内容不渲染，也可以将此文件夹任意取名，我们将在
+*source/conf.py* 中配置它。
 
-.. warning::
+在 *source/conf.py* 中，通过 Python 的功能将扩展所在的文件夹加载到路径中，然后配置 `extensions` 变量，
+在列表中添加模块名：
 
-    以下内容未完成.
-    代码可能无效或出错.
+.. code:: python
 
-自定义指令
-==========
+    # ...
+    import sys
+    from pathlib import Path
+    sys.path.insert(0, Path("_ext").absolute().as_posix())
+    # ...
+    extensions = [
+        "helloworld"
+    ]
 
-HelloWorld 扩展
----------------
+为了让 Sphinx 加载此扩展，你需要在上面提供的功能代码 `ext_helloworld`_ 的基础上再添加一个 `setup` 函数：
 
-定义一个指令, 需要继承 :class:`docutils.parser.rst.Directive`::
+.. literalinclude:: /_ext/helloworld.py
+    :language: python
+    :emphasize-lines: 15-29
+    :linenos:
 
-    from docutils.parser.rst import Directive
+::
 
-    class HelloWorld(Directive):
-        pass
+    .. helloworld::
 
-对于子类, 需要定义一个 ``run`` 方法::
+.. helloworld::
 
-    class HelloWorld(Directive):
-        def run(self):
-            pass
+Nikola 加载插件
+===============
 
-在 run 方法中, 返回一个 :mod:`docutils.nodes` 实例列表::
-
-    class HelloWorld(Directive):
-        def run(self):
-            return [nodes.paragraph(text="Hello World!")]
-
-以下为完整代码::
-
-    from docutils.parser.rst import Directive
-    from docutils import nodes
-
-    class Hello(Directive):
-        def run(self):
-            main = nodes.paragraph(text="Hello World!")
-            return [main]
-
-    def setup(app):
-        app.add_directive("hello", Hello)
-
-然后在 rst 文档中::
-
-    .. hello::
-
-编译后该指令被替换为::
-
-    Hello World!
-
-接受参数的指令
-==============
-
-一个指令如下使用参数::
-
-    .. 指令名:: 指令的 content
-        :指令的 option:
-
-        指令的 content
-
-指令的 content 是除了包裹在 ``:option:`` 之外的一切内容,
-包括双冒号后的输入, 以及次级缩进块中的普通文本.
+编写扩展
+========
